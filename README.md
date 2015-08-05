@@ -1,4 +1,4 @@
-# cut-cell-fem-3D
+# fem-cut-cell-3D
 FEM code based on deal.II (www.dealii.org) to solve 3D problems using unfitted meshes under the cut-cell approach.
 The approach used to solve FEM equations in an unfitted mesh is based on the work of Mirtich (1996), where
 he outlined a technique to convert integrals on complex polyhedra into line integrals based on Green's theorem.
