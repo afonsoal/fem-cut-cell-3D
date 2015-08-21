@@ -2,8 +2,9 @@
 FEM code based on deal.II (www.dealii.org) to solve 3D problems using unfitted meshes under the cut-cell approach.
 The approach used to solve FEM equations in an unfitted mesh is based on the work of Mirtich (1996), where
 he outlined a technique to convert integrals on complex polyhedra into line integrals based on Green's theorem.
-The classical Poisson problem is solved in a sphere. Nitsche's method was used to impose boundary conditions weakly,
-following the mathematical formulation in Burman and Hansbo (2012).
+The classical Poisson problem is solved in a sphere. Nitsche's method was used to impose boundary conditions weakly, following the mathematical formulation in Burman and Hansbo (2012).
+
+The actual code will be released soon after publication. For some results on the 3D Poisson Problem test case, see the folder results.
 
 A brief description of the main classes:
 
@@ -15,9 +16,9 @@ mesh and original faces which maintain deal.ii's native info. It has several met
 and the projected faces, which are used to evaluate relevant integrals.
 
 polymul.h: Modified code from https://code.google.com/p/polymul/. Contains polynomial structure based on dimension
-and degree.
+and degree. Used extensively for multiplication of polynomials arising from the integration on complex polyhedra.
 
-Polynomials3D.h: Added several functions to manipulate polynomials, needed to integrate terms on complex polyhedra.
+Polynomials3D.h: Added several functions to manipulate polynomials, needed to integrate terms on complex polyhedra. Implemented functions of matrix-vector of polynomials multiplication, dot product of vector of polynomials, get the gradient of polynomials, get the projection of polynomial functions, etc.
 
 Write_VTK: Creates .vtk files based on lines instead of cells.
 
