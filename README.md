@@ -37,15 +37,11 @@ Implements main functions for numerical integration of terms arising from the fi
 
 References:
 Finite Element formulation:
-Erik Burman and Peter Hansbo. Fictitious domain finite element
-methods using cut elements: II. A stabilized Nitsche method. Applied
-Numerical Mathematics, 62(4):328 – 341, 2012.
+Erik Burman and Peter Hansbo. Fictitious domain finite element methods using cut elements: II. A stabilized Nitsche method. Applied Numerical Mathematics, 62(4):328 – 341, 2012.
 Integration over complex polyhedra:
-Brian Mirtich. Fast and accurate computation of polyhedral mass
-properties. J. Graph. Tools, 1(2):31–50, February 1996.
+Brian Mirtich. Fast and accurate computation of polyhedral mass properties. J. Graph. Tools, 1(2):31–50, February 1996.
 polymul.h:
-EKSTRÖM, U. Polymul library. 2009. Available in:
-<https://code.google.com/p/polymul/>.
+EKSTRÖM, U. Polymul library. 2009. Available in: <https://code.google.com/p/polymul/>.
 
 
 
