@@ -21,7 +21,8 @@ using namespace dealii;
 class NewCell_3D
 {
 private:
-
+	static const int dim = 3;
+	enum { X = 0, Y = 1, Z = 2};
 	int vertices_index;
 	std::vector<Point<3> > vertices;
 	Vector<double> _levelset;
@@ -29,10 +30,11 @@ private:
 		int face_it;
 		bool is_stabilization_face;
 	};
-
+	double cell_volume;
 	void CompFaceArea();
 
 public:
+	int number_of_vertices;
 	std::vector<real_faces_info> real_faces_vector;
 	Point<3> cell_centroid;
 	std::vector<NewFace_3D> Obj_VectorNewFace;
@@ -52,6 +54,9 @@ public:
 	void CompCellCentroid();
 	void ReorderAllVertices();
 	void OrganizeVertices();
+	void CompCellVolume();
+
+	double GetCellVolume();
 
 //	void Compute(); // Change name later
 

@@ -19,7 +19,9 @@ using namespace dealii;
 
 class Write_VTK {
 private:
+	static const int dim = 3;
 	std::vector</*NewCell_3D::*/NewCell_3D> & CutTriangulation;
+	Vector <double> solution_inside;
 
 	struct lines_data
 	{
@@ -35,7 +37,12 @@ public:
 	Write_VTK(std::vector</*NewCell_3D::*/NewCell_3D> &_CutTriangulation);
 	std::vector<lines_data> all_lines;
 	void OrganizeVertices();
-	void WriteFile(std::ofstream  &out);
+	void hp_InterpolateSolution(hp::DoFHandler<dim>		const &dof_handler,
+			BlockVector<double> &solution, const int variable);
+	void CreateDummySolution();
+	void InterpolateSolution(DoFHandler<dim>		const &dof_handler,
+			Vector<double> &solution);
+	void WriteFile(std::ofstream  &out, std::string &solution_name);
 	void AddVectors(std::ofstream  &out);
 	virtual ~Write_VTK();
 };
