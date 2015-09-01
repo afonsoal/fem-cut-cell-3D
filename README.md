@@ -8,26 +8,44 @@ The actual code will be released soon after publication. For some results on the
 
 A brief description of the main classes:
 
-NewCell_3D: Contains all the cut cell information, as well as functions to organize and reorder vertices, compute 
-geometric center and compute the boundary cut face.
+• NewMesh_3D{.cpp,.h}
+Responsible for organiing and creating an object of the type dealii::Triangulation<3> containing only elements entirely or partially contained in the main domain.
 
-NewFace_3D: Contains all the information about cell lines and faces, both from new cut faces which are generated from the cut
-mesh and original faces which maintain deal.ii's native info. It has several methods used to generate the cut faces
-and the projected faces, which are used to evaluate relevant integrals.
+• NewCell_3D{.cpp,.h}
+Contains all the information and all the relevant function for the construction of an intersected element. Holds info about faces through a STL vector of NewFace_3D objects (std::vector<NewFace_3D>) for easy manipulation and data extraction. 
 
-polymul.h: Modified code from https://code.google.com/p/polymul/. Contains polynomial structure based on dimension
-and degree. Used extensively for multiplication of polynomials arising from the integration on complex polyhedra.
+• NewFace_3D{.cpp,.h}
 
-Polynomials3D.h: Added several functions to manipulate polynomials, needed to integrate terms on complex polyhedra. Implemented functions of matrix-vector of polynomials multiplication, dot product of vector of polynomials, get the gradient of polynomials, get the projection of polynomial functions, etc.
+Contains data and functions needed to implement faces of a new cut-cell. Implements several methods used to generate the cut faces and the projected faces, which are used to evaluate relevant integrals. Info about each line are hold in a struct NewLine, which are collected in a STL vector (std::vector<NewLine>).
 
-Write_VTK: Creates .vtk files based on lines instead of cells.
+• Write_VTK {.cpp,.h}
+
+Responsible for generating .vtk files. Generates an structure based in 2D lines, because the newly generated cut-cells may be irregular polyhedra with diverse number of sides.
+
+• polymul.h
+
+Code used to implement and multiply multivariate polynomials, originally found in (Ekstrom, 2009). The code was changed to add some methods to manipulate polynomials that are needed to integrate complex polyhedra.
+
+• Polynomials3D.h
+
+Code containing the class Polynomials3D, which expands the polynomial structure of polymul.h, as well as the NPPolynomials namespace. NPPolynomials contains functions used to manipulate scalar or vector polinomial functions, such as the divergente and gradient operations, computing of vectorial fields, plane projections, matrix-vector multiplication, dot product, etc.
+
+• CutCell_Integration_3D {.cpp,.h}
+Implements main functions for numerical integration of terms arising from the finite element formulation using Nitsche's method to impose boundary conditions weakly.
+
+
 
 References:
+Finite Element formulation:
 Erik Burman and Peter Hansbo. Fictitious domain finite element
 methods using cut elements: II. A stabilized Nitsche method. Applied
 Numerical Mathematics, 62(4):328 – 341, 2012.
-
+Integration over complex polyhedra:
 Brian Mirtich. Fast and accurate computation of polyhedral mass
 properties. J. Graph. Tools, 1(2):31–50, February 1996.
+polymul.h:
+EKSTRÖM, U. Polymul library. 2009. Available in:
+<https://code.google.com/p/polymul/>.
+
 
 
