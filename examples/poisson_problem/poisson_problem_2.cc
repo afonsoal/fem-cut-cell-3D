@@ -1,5 +1,44 @@
-/*
- * Updated with CutCell_Integration.cpp. Reduced total time from 99.8 s to 39.7 s.
+/* The fem-cut-cell-3D software
+ * Author	  : Afonso Alborghetti Londero (afonsoal@gmail.com)
+ * Last update:	08/Sep/2015
+ *
+ * This is the main file for implementation of the Poisson Problem in 3D
+ * using Dirichlet B.C. imposed weakly with Nitsche's method.
+ *
+ * This file is part of the fem-cut-cell-3D software, built using the deal.ii
+ * library. You are free to use it under the MIT License as described below.
+ *
+ *
+ * The MIT License (MIT)
+ * Copyright (c) <2015> <Afonso Alborghetti Londero>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.*/
+/* ---------------------------------------------------------------------
+ * deal.ii license information
+ *
+ * Copyright (C) 1999 - 2013 by the deal.II authors
+ *
+ * The deal.II library is free software; you can use it, redistribute
+ * it, and/or modify it under the terms of the GNU Lesser General
+ * Public License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * The full text of the license can be found in the file LICENSE at
+ * the top level of the deal.II distribution.
+ *
+ * ---------------------------------------------------------------------
  *
  */
 
@@ -61,7 +100,7 @@
 #include "../../include/Write_VTK.h"
 #include "../../include/Polynomials3D.h"
 #include "../../include/polymul.h"
-#include "../../CutCell_Integration_3D.h"
+#include "../../include/CutCell_Integration_3D.h"
 
 #include <deal.II/dofs/dof_renumbering.h>
 
@@ -311,9 +350,9 @@ void PoissonProblem<dim>::make_grid ()
 		triangulation.refine_global(2);// Now, it just makes sense to start in 2
 	}
 //	int refinement = 0;
-//	int refinement = 1;
+	int refinement = 1;
 //	int refinement = 2;
-	int refinement = 3;
+//	int refinement = 3;
 	total_refinement = 2+refinement;
 //	cycle = total_refinement;
 	triangulation.refine_global(refinement); // Last refinement cycle
@@ -860,19 +899,19 @@ void PoissonProblem<dim>::create_new_cut_cell_mesh()
 	std::ofstream output(filename_new.c_str());
 }
 
-	if(0) // Create a triangulation with only stabilization faces to check if the faces were assigned correctly. Everything seems in order.
-	 {
-		 Write_VTK Obj_Write_VTK_OneCell(CutTriangulation_only_stab_faces);
-		 Obj_Write_VTK_OneCell.OrganizeVertices();
-		 std::string filename_new = save_to_folder + "/Cut-cell_mesh_only_stab_faces-ref-";
-		 filename_new += ('0' + total_refinement);
-		 filename_new += ".vtk";
-		 std::ofstream output_OneCell(filename_new.c_str());
-
-		 Obj_Write_VTK_OneCell.WriteFile(output_OneCell);
-		 Obj_Write_VTK_OneCell.AddVectors(output_OneCell);
-		 cout << "CutTriangulation_only_stab_faces created \n";
-	 }
+//	if(0) // Create a triangulation with only stabilization faces to check if the faces were assigned correctly. Everything seems in order.
+//	 {
+//		 Write_VTK Obj_Write_VTK_OneCell(CutTriangulation_only_stab_faces);
+//		 Obj_Write_VTK_OneCell.OrganizeVertices();
+//		 std::string filename_new = save_to_folder + "/Cut-cell_mesh_only_stab_faces-ref-";
+//		 filename_new += ('0' + total_refinement);
+//		 filename_new += ".vtk";
+//		 std::ofstream output_OneCell(filename_new.c_str());
+//
+//		 Obj_Write_VTK_OneCell.WriteFile(output_OneCell);
+//		 Obj_Write_VTK_OneCell.AddVectors(output_OneCell);
+//		 cout << "CutTriangulation_only_stab_faces created \n";
+//	 }
 
  std::cout << "Call to create_new_cut_cell_mesh successfull.\n";
  cout << "Time elapsed: \n";
@@ -1494,7 +1533,7 @@ void PoissonProblem<dim>::run ()
 	const clock_t begin_time = clock();
 	cycle = 0;
 	n_cycles = 2;
-	save_to_folder = "for_publishing"; // Multiplied constants by cell size.
+	save_to_folder = "../../results/poisson_problem"; // Multiplied constants by cell size.
 	ALLERRORS.reinit(n_cycles,8);
 
 //	while (cycle < n_cycles) // In case one wants to run several cycles of refinement

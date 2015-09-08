@@ -1,9 +1,9 @@
 ##
-#  CMake script for the step-3 tutorial program:
+#  CMake script for the 3D Poisson problem tutorial program:
 ##
 
 # Set the name of the project and target:
-SET(TARGET "poisson_problem")
+SET(TARGET "poisson_problem_2")
 
 # Declare all source files the target consists of:
 SET(TARGET_SRC
@@ -13,6 +13,7 @@ SET(TARGET_SRC
 ../../include/NewCell_3D.cpp
 ../../include/NewFace_3D.cpp
 ../../include/Write_VTK.cpp
+../../include/CutCell_Integration_3D.cpp
 
   # You can specify additional files here!
   )
