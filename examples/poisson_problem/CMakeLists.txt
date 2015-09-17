@@ -1,9 +1,14 @@
+ # This file is part of the fem-cut-cell-3D software, built using the deal.ii
+ # library. You are free to use it under the GNU Lesser General Public License
+ # as described in the LICENSE File.
+ # Copyright (c) <2015> <Afonso Alborghetti Londero>
+
 ##
 #  CMake script for the 3D Poisson problem tutorial program:
 ##
 
 # Set the name of the project and target:
-SET(TARGET "poisson_problem_2")
+SET(TARGET "poisson_problem")
 
 # Declare all source files the target consists of:
 SET(TARGET_SRC
